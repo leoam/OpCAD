@@ -1,0 +1,28 @@
+*** SPICE deck for cell amp_sim{sch} from library amp_lib
+*** Created on vie feb 17, 2017 15:47:19
+*** Last revised on mié mar 15, 2017 23:12:00
+*** Written on vie mar 24, 2017 21:28:32 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+*** SUBCIRCUIT amp_lib__amp FROM CELL amp{sch}
+.SUBCKT amp_lib__amp in out
+** GLOBAL gnd
+** GLOBAL vdd
+Mnmos@0 out in gnd gnd NMOS L=12.6962U W=7.59112U
+Mpmos@0 out out vdd vdd PMOS L=10.9945U W=9.37891U
+.ENDS amp_lib__amp
+
+.global gnd ac
+
+*** TOP LEVEL CELL: amp_sim{sch}
+Xinv_20_1@0 in out amp_lib__amp
+
+* Spice Code nodes in cell cell 'amp_sim{sch}'
+ac 1 ac1 1 DC 5
+*vin in 0 DC 0
+*.print dc v(out) v(in) i(vin) i(vdd) v(vdd)
+*.dc vin 0 5 1m
+.ac dec 1K 100 1Meg
+.include /home/leonardo/.wine/drive_c/Program_Files_x86/Electric/C5_models.txt
+.END

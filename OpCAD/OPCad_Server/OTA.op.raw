@@ -1,0 +1,156 @@
+Title: *** SPICE deck for cell OTA{sch} from library OTA
+Date: Sat Jul 29 13:11:05 2017
+Plotname: Operating Point
+Flags: real
+No. Variables: 73
+No. Points:            1
+Offset:   0.0000000000000000e+000
+Command: Linear Technology Corporation LTspice IV
+Variables:
+	0	V(net@94)	voltage
+	1	V(net@0)	voltage
+	2	V(vdd)	voltage
+	3	V(ib2)	voltage
+	4	V(v+)	voltage
+	5	V(ib1)	voltage
+	6	V(v-)	voltage
+	7	V(net@3)	voltage
+	8	V(net@81)	voltage
+	9	V(out)	voltage
+	10	Id(Mpmos-4@8)	device_current
+	11	Ig(Mpmos-4@8)	device_current
+	12	Ib(Mpmos-4@8)	device_current
+	13	Is(Mpmos-4@8)	device_current
+	14	Id(Mpmos-4@7)	device_current
+	15	Ig(Mpmos-4@7)	device_current
+	16	Ib(Mpmos-4@7)	device_current
+	17	Is(Mpmos-4@7)	device_current
+	18	Id(Mpmos-4@6)	device_current
+	19	Ig(Mpmos-4@6)	device_current
+	20	Ib(Mpmos-4@6)	device_current
+	21	Is(Mpmos-4@6)	device_current
+	22	Id(Mpmos-4@5)	device_current
+	23	Ig(Mpmos-4@5)	device_current
+	24	Ib(Mpmos-4@5)	device_current
+	25	Is(Mpmos-4@5)	device_current
+	26	Id(Mpmos-4@4)	device_current
+	27	Ig(Mpmos-4@4)	device_current
+	28	Ib(Mpmos-4@4)	device_current
+	29	Is(Mpmos-4@4)	device_current
+	30	Id(Mpmos-4@3)	device_current
+	31	Ig(Mpmos-4@3)	device_current
+	32	Ib(Mpmos-4@3)	device_current
+	33	Is(Mpmos-4@3)	device_current
+	34	Id(Mpmos-4@2)	device_current
+	35	Ig(Mpmos-4@2)	device_current
+	36	Ib(Mpmos-4@2)	device_current
+	37	Is(Mpmos-4@2)	device_current
+	38	Id(Mpmos-4@1)	device_current
+	39	Ig(Mpmos-4@1)	device_current
+	40	Ib(Mpmos-4@1)	device_current
+	41	Is(Mpmos-4@1)	device_current
+	42	Id(Mnmos-4@5)	device_current
+	43	Ig(Mnmos-4@5)	device_current
+	44	Ib(Mnmos-4@5)	device_current
+	45	Is(Mnmos-4@5)	device_current
+	46	Id(Mnmos-4@4)	device_current
+	47	Ig(Mnmos-4@4)	device_current
+	48	Ib(Mnmos-4@4)	device_current
+	49	Is(Mnmos-4@4)	device_current
+	50	Id(Mnmos-4@3)	device_current
+	51	Ig(Mnmos-4@3)	device_current
+	52	Ib(Mnmos-4@3)	device_current
+	53	Is(Mnmos-4@3)	device_current
+	54	Id(Mnmos-4@2)	device_current
+	55	Ig(Mnmos-4@2)	device_current
+	56	Ib(Mnmos-4@2)	device_current
+	57	Is(Mnmos-4@2)	device_current
+	58	Id(Mnmos-4@1)	device_current
+	59	Ig(Mnmos-4@1)	device_current
+	60	Ib(Mnmos-4@1)	device_current
+	61	Is(Mnmos-4@1)	device_current
+	62	Id(Mnmos-4@0)	device_current
+	63	Ig(Mnmos-4@0)	device_current
+	64	Ib(Mnmos-4@0)	device_current
+	65	Is(Mnmos-4@0)	device_current
+	66	I(Idccurren@1)	device_current
+	67	I(Idccurren@0)	device_current
+	68	I(Rres@2)	device_current
+	69	I(Rres@1)	device_current
+	70	I(Rres@0)	device_current
+	71	I(Vdd)	device_current
+	72	I(Vdcvoltag@0)	device_current
+Values:
+0		2.537417209544039e+001
+	0.000000000000000e+000
+	1.000000000000000e+002
+	1.902250881206344e+006
+	0.000000000000000e+000
+	1.902250881206343e+006
+	0.000000000000000e+000
+	5.006450389399164e+001
+	5.006450389399161e+001
+	2.537253149571566e+001
+	1.906747429444171e+002
+	0.000000000000000e+000
+	-1.906735379220203e+002
+	-1.205022396760569e-003
+	9.520572851034855e+001
+	0.000000000000000e+000
+	-9.520572851034855e+001
+	0.000000000000000e+000
+	9.520572851034855e+001
+	0.000000000000000e+000
+	-9.520572851034855e+001
+	0.000000000000000e+000
+	9.520572851034855e+001
+	0.000000000000000e+000
+	-9.520572851034855e+001
+	0.000000000000000e+000
+	1.906747429444170e+002
+	0.000000000000000e+000
+	-1.906735379220202e+002
+	-1.205022396760569e-003
+	9.521207164322247e+001
+	0.000000000000000e+000
+	-9.521207164322247e+001
+	0.000000000000000e+000
+	9.521207164322247e+001
+	0.000000000000000e+000
+	-9.521207164322247e+001
+	0.000000000000000e+000
+	9.521207164322247e+001
+	0.000000000000000e+000
+	-9.521207164322247e+001
+	0.000000000000000e+000
+	-2.856425580625414e+002
+	0.000000000000000e+000
+	2.856425580625414e+002
+	0.000000000000000e+000
+	-1.906747429446077e+002
+	0.000000000000000e+000
+	1.901747467488616e+002
+	4.999961957460641e-001
+	-1.906747429446077e+002
+	0.000000000000000e+000
+	1.901747467488616e+002
+	4.999961957460926e-001
+	1.902150891206343e-006
+	0.000000000000000e+000
+	-3.804301782412686e-006
+	1.902150891206344e-006
+	1.902150891206344e-006
+	0.000000000000000e+000
+	-3.804301782412686e-006
+	1.902150891206343e-006
+	-2.856362149296675e+002
+	0.000000000000000e+000
+	2.856362149296675e+002
+	0.000000000000000e+000
+	5.000000000000000e-001
+	5.000000000000000e-001
+	2.537253149571566e-002
+	0.000000000000000e+000
+	0.000000000000000e+000
+	-9.516282588810427e+002
+	0.000000000000000e+000

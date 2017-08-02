@@ -1,0 +1,34 @@
+*** SPICE deck for cell OTA{sch} from library OTA
+*** Created on Sat Jul 22, 2017 13:16:33
+*** Last revised on Sun Jul 23, 2017 17:41:43
+*** Written on Sun Jul 23, 2017 17:41:56 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: OTA{sch}
+Mnmos-4@0 net@94 net@0 vdd vdd NMOS L=5.16703U W=14.8988U
+Mnmos-4@1 Ib2 V+ Ib1 vdd NMOS L=8.05944U W=8.00853U
+Mnmos-4@2 Ib1 V- Ib2 vdd NMOS L=3.33257U W=7.89039U
+Mnmos-4@3 net@3 V+ Ib2 vdd NMOS L=2.22668U W=7.42717U
+Mnmos-4@4 net@81 V- Ib1 vdd NMOS L=2.58364U W=10.7207U
+Mnmos-4@5 Out net@0 vdd vdd NMOS L=13.0408U W=12.3581U
+Mpmos-4@1 net@94 net@81 gnd gnd PMOS L=10.1461U W=4.52627U
+Mpmos-4@2 net@94 net@81 gnd gnd PMOS L=8.43507U W=6.59849U
+Mpmos-4@3 net@94 net@81 gnd gnd PMOS L=2.53337U W=14.7608U
+Mpmos-4@4 net@81 net@81 gnd gnd PMOS L=2.28437U W=3.90588U
+Mpmos-4@5 Out net@3 gnd gnd PMOS L=14.8U W=1.11103U
+Mpmos-4@6 Out net@3 gnd gnd PMOS L=3.38029U W=13.1651U
+Mpmos-4@7 Out net@3 gnd gnd PMOS L=3.32811U W=2.59849U
+Mpmos-4@8 net@3 net@3 gnd gnd PMOS L=12.9218U W=1.15048U
+Rres@0 V+ gnd 1k
+Rres@1 gnd V- 1k
+Rres@2 Out gnd 1
+VDCVoltag@0 V+ V- DC 0
+
+* Spice Code nodes in cell cell 'OTA{sch}'
+Vdd Vdd 0 DC 10
+.dc VDCVoltag@0 0 10 1m
+.include /home/leonardo/.wine/drive_c/Program_Files_x86/Electric/C5_models.txt
+.END

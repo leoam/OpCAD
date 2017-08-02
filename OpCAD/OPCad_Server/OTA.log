@@ -1,0 +1,89 @@
+Circuit: *** SPICE deck for cell OTA{sch} from library OTA
+
+Ignoring BSIM parameter XL
+Ignoring BSIM parameter XW
+Ignoring BSIM parameter XL
+Ignoring BSIM parameter XW
+WARNING: Node NET@0 is floating.
+
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Warning: Pd = 0 is less than W.
+Warning: Ps = 0 is less than W.
+Direct Newton iteration failed to find .op point.  (Use ".option noopiter" to skip.)
+Starting Gmin stepping
+Gmin = 10
+Gmin = 1.07374
+Gmin = 0.115292
+Gmin = 0.0123794
+Gmin = 0.00132923
+Gmin = 0.000142725
+Gmin = 1.5325e-005
+Gmin = 1.6455e-006
+vernier = 0.5
+vernier = 0.25
+vernier = 0.333333
+Gmin = 1.19475e-006
+vernier = 0.444444
+vernier = 0.222222
+vernier = 0.111111
+Gmin = 8.42161e-007
+vernier = 0.148148
+vernier = 0.197531
+Gmin = 5.7007e-007
+vernier = 0.263374
+vernier = 0.131687
+vernier = 0.0658435
+Gmin = 4.6213e-007
+vernier = 0.0877914
+vernier = 0.117055
+Gmin = 3.66034e-007
+vernier = 0.156073
+vernier = 0.0780367
+vernier = 0.0390184
+Gmin = 3.22907e-007
+vernier = 0.0520245
+vernier = 0.0693659
+Gmin = 2.81054e-007
+vernier = 0.0924879
+vernier = 0.123317
+Gmin = 2.25755e-007
+vernier = 0.164423
+Gmin = 1.58573e-007
+vernier = 0.21923
+vernier = 0.292307
+Gmin = 8.94959e-008
+vernier = 0.389743
+vernier = 0.519657
+Gmin = 3.66936e-008
+vernier = 0.692876
+Gmin = 8.9633e-009
+vernier = 0.923834
+vernier = 1
+Gmin = 1.12434e-009
+Gmin = 1.20725e-010
+Gmin = 1.29628e-011
+Gmin = 1.39187e-012
+Gmin = 1.49451e-013
+Gmin = 0
+Gmin stepping succeeded in finding the operating point.
+
+
+Date: Sat Jul 29 13:11:09 2017
+Total elapsed time: 4.188 seconds.
+
+tnom = 27
+temp = 27
+method = trap
+totiter = 5390
+traniter = 0
+tranpoints = 0
+accept = 0
+rejected = 0
+matrix size = 12
+fillins = 11
+solver = Normal
+Matrix Compiler1:      84 opcodes
+Matrix Compiler2: off  [1.9]/2.0/2.8
+
+

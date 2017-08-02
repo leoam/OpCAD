@@ -1,0 +1,8 @@
+Circuit: *** SPICE deck for cell OTA{sch} from library OTA
+
+Ignoring BSIM parameter XL
+Ignoring BSIM parameter XW
+Ignoring BSIM parameter XL
+Ignoring BSIM parameter XW
+WARNING: Node NET@0 is floating.
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+#cd /home/leonardo/Escritorio/Optimizacion/simInterface/OTA_ultimo_2
+#./LTSpice.exe -ascii -b circuit.spi
+#free -m
+./LTSpice.exe -ascii -b -nowine circuit.spi
+

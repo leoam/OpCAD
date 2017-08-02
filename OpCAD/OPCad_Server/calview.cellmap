@@ -1,0 +1,163 @@
+(pmos4 (PRIMLIB pmos4 symbol)
+  (
+    (g G)
+    (s S)
+    (d D)
+    (b B)
+  )
+)
+
+(pmosm4 (PRIMLIB pmosm4 symbol)
+  (
+    (g G)
+    (s S)
+    (d D)
+    (b B)
+  )
+)
+
+(nmos4 (PRIMLIB nmos4 symbol)
+  (
+    (g G)
+    (s S)
+    (d D)
+    (b B)
+  )
+)
+
+(nmosm4 (PRIMLIB nmosm4 symbol)
+  (
+    (g G)
+    (s S)
+    (d D)
+    (b B)
+  )
+)
+
+(nmosh (PRIMLIB nmosh4 symbol)
+  (
+    (g G)
+    (s S)
+    (d D)
+    (b B)
+  )
+)
+
+(nmosmh (PRIMLIB nmosmh4 symbol)
+  (
+    (g G)
+    (s S)
+    (d D)
+    (b B)
+  )
+)
+
+(pnpvert10 (PRIMLIB vert10_4 symbol)
+  (
+    (c C)
+    (b B)
+    (e E)
+    (nil SUB VSS)
+  )
+)
+
+(pnplat (PRIMLIB lat2 symbol)
+  (
+    (c C)
+    (b B)
+    (e E)
+    (s SUB)
+    (g G)
+  )
+)
+
+(rpoly2 (PRIMLIB rpoly2 symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+  )
+)
+
+(rpolyh (PRIMLIB rpolyh symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+  )
+)
+
+(rdiffp3 (PRIMLIB rdiffp3 symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+    (sub B)
+  )
+)
+
+(rnwell (PRIMLIB rnwell symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+    (sub B)
+  )
+)
+
+(cpolya (PRIMLIB cpoly symbol)
+  (
+    (pos MINUS)
+    (neg PLUS)
+  )
+)
+
+(cmim (PRIMLIB cmim symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+  )
+)
+
+(cvar (PRIMLIB cvar symbol)
+  (
+    (g G)
+    (s S)
+    (d S)
+    (b B)
+  )
+)
+
+(nd (PRIMLIB subdiode symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+  )
+  (
+    (area area)(pj perimeter)
+  )
+)
+
+(pd (PRIMLIB welldiode symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+  )
+)
+
+(nwd (PRIMLIB nwd symbol)
+  (
+    (pos PLUS)
+    (neg MINUS)
+  )
+)
+
+((p cap c) (PRIMLIB pcapacitor symbol)
+  (
+    (PLUS)
+    (MINUS)
+  )
+)
+
+((p res r) (PRIMLIB presistor symbol)
+  (
+    (PLUS)
+    (MINUS)
+  )
+)

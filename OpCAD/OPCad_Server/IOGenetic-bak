@@ -1,0 +1,523 @@
+//This program gets a group of parameters in an array, write them to a Spectre netlist, 
+//executes the simulation, read the simulation output file and generates a group the fitness values
+//Version 1.0
+
+#include <iostream> 
+#include <fstream>
+#include <vector>
+#include <math.h>
+#include <cmath>
+#include <stdlib.h>
+#include <sstream>
+#include "ServerSocket.h"
+#include "SocketException.h"
+#include <string>
+
+//definition of parameters WBS WA WB WL VDD Vctrl period LBS LA LB LL BIAS  
+double parameters[]={0.8e-6, 0.4e-6, 0.8e-6, 0.4e-6, 3.3, 1.0, 10e-9, 0.4e-6, 0.4e-6, 0.4e-6, 0.4e-6, 1.0};
+
+//define size of arrays
+const int sizeOfArray = 4000;
+
+//definicion del arreglo de fitness
+double Fitns[2]; 
+
+// definicion de arreglos del salida
+double timeim[sizeOfArray];
+double power[sizeOfArray];
+double A[sizeOfArray];
+double Ainv[sizeOfArray];
+double B[sizeOfArray];
+double Binv[sizeOfArray];
+double IPRB1[sizeOfArray];
+double vout[sizeOfArray];
+double voutinv[sizeOfArray];
+int countsamples=1;
+
+/*funcion para escribir el grupo de parametros en el Netlist*****************************************************************************************/
+
+void writeparameters (string leer, string busqueda, string data){
+
+//for (int i=0; i<9; i++){
+//   cout << "parametro:" << parameters[i] << endl; //despliega el arreglo
+// }
+  
+fstream inOutFile ("diffNand.sim", ios::in | ios::out ); //define el netlist a leer y lo configura para lectura/escritura 
+  
+  bool control=true; //control para ejecutar el lazo mientras se encuetra la posicion donde se escriben los parametros en el netlist
+  while (control){ 
+  inOutFile >> leer; //lee del netlist grupos de caracteres hasta encontrar un espacio en blanco
+  		     // si el parametro buscado coincide con el grupo de caracteres leidos escribe los parametros y finaliza el ciclo	
+  if (leer == busqueda) {
+  inOutFile << data ;
+  control=false;
+ }
+ cout << leer<< endl; //despliega el parametro leido en el netlist
+ } 
+  
+inOutFile.close(); //cierra el archivo
+}
+
+
+/*declaracion para la funcion system*/
+int system (const char *string);
+
+
+/* convertir strings a double y viceversa
+double v1=3.14, v2=6.28;
+ostringstream sstr;
+sstr << "Value1: " << v1 << "Value2: " << v2;
+string str;
+str = sstr.str();
+cout << str;
+*/
+
+/*funcion para leer y almacenar los resultados de la simulacion en un grupo de arreglos*************************************************************/
+void readparameters (string leer, string busqueda){
+
+	fstream OutFile ("diffNand.raw", ios::in ); // define el archivo a leer con los resultados, solo lectura
+ 
+  	bool control=true;
+ 	while (control){
+  	OutFile >> leer;
+	cout << leer;
+  	if (leer == busqueda) { 
+ 	 control=false;
+	 while (!OutFile.eof()){
+	 OutFile >> countsamples;
+	 if (!OutFile.eof()){
+	 OutFile >> timeim[countsamples];
+ 	 OutFile >> power[countsamples];
+ 	 OutFile >> A[countsamples];
+	 OutFile >> Ainv[countsamples];
+	 OutFile >> B[countsamples];
+	 OutFile >> Binv[countsamples];
+	 OutFile >> IPRB1[countsamples];
+	 OutFile >> vout[countsamples];
+	 OutFile >> voutinv[countsamples];
+ 	cout << " timeim: " << timeim[countsamples] << " power: " << power[countsamples] 
+	<< " A: " << A[countsamples] << " Ai: " << Ainv[countsamples] << " B: " << B[countsamples] << " Bi: " << Binv[countsamples]
+      	<< " I: "<< IPRB1[countsamples] << " vout: " << vout[countsamples] << " vouti: " << voutinv[countsamples]
+	<< " count: " << countsamples << endl;
+   			}
+       		}
+ 	cout << countsamples << endl;
+      	 }
+   	}
+	OutFile.close();
+}
+
+/*Funciones para procesar los resultados de la simulacion****************************************************************/
+int findmax (double qarray[],int size){
+	int max=0;
+	double maxvalue=qarray[0];
+	for (int i=0; i<=size; i++){
+ 	if (qarray[i]>maxvalue) {
+ 		max=i;
+		maxvalue=qarray[i];
+		}
+	}
+	cout <<"element max: " << max << " max:" << qarray[max] << " @: "<< timeim[max] << endl;
+	return  max;
+	}
+
+int findmin (double qarray[],int size){
+	int min=0;
+	double minvalue=qarray[0];
+	for (int i=0; i<=size; i++){
+ 	if (qarray[i]<minvalue) {
+ 		min=i;
+		minvalue=qarray[i];
+		}
+	}
+	cout <<"element min: " << min << " min:" << qarray[min] << " @: "<< timeim[min] << endl;
+	return  min;
+	}
+
+double maxswing(double qarray[],int size){
+	int max = findmax (qarray,size);
+	int min = findmin (qarray,size);
+	double maxswing=qarray[max]-qarray[min];
+	cout << "maxswing:" << maxswing << endl;
+	return maxswing;
+	}
+	
+double average (double qarray[],int size){
+	
+	double deltat=(timeim[0]-timeim[1])/2; //primera media muestra
+	double average= deltat*qarray[0];
+	
+	for (int i=1;i<size;i++){
+	deltat=((timeim[i]-timeim[i-1])/2)+((timeim[i+1]-timeim[i])/2);
+	average=average+(deltat*qarray[i]);
+	}
+	
+	deltat=(timeim[size]-timeim[size-1])/2; //ultima media muestra
+	average=average+(deltat*qarray[size]);
+	average=average/(timeim[size]-timeim[0]);	
+	
+	cout << "average:" << average << endl;
+	return average;
+}
+
+	
+double findmax_diffswing (double qarray0[], double qarray1[], int size){
+	int max=0;
+	double temp=0;
+	double maxvalue=abs(qarray0[0]-qarray1[0]);
+	for (int i=0; i<=size; i++){
+	temp= abs(qarray0[i]-qarray1[i]);
+ 	if (temp>maxvalue) {
+ 		max=i;
+		maxvalue=temp;
+		}
+	}
+	cout <<"element maxdiff: " << max << " max:" << maxvalue << " @: " << qarray0[max] << " & " << qarray1[max]
+	<< " @: " << timeim[max] << endl;
+	return  maxvalue;
+	}
+
+double  findt50hl (double qarray[],int size){
+	double abs (double n); //declaration of abs
+	double valuet50hlideal = (qarray[findmax(qarray,size)]+qarray[findmin(qarray,size)])/2;
+	double t50hl=0;
+	double valuet50hl=0;
+	double delta=abs(valuet50hlideal);
+	int index=0;
+	for (int i=1; i<size; i++){
+	double slope=(qarray[i-1]-qarray[i+1])/(timeim[i-1]-timeim[i+1]);
+ 	if (slope<0){
+	
+ 			if (abs(qarray[i]-valuet50hlideal)<delta){
+			delta=abs(qarray[i]-valuet50hlideal);
+			index=i;
+			valuet50hl=qarray[i];
+			t50hl=timeim[i];
+	        	}
+	}
+	}
+	cout <<"value t50: " << valuet50hl << " @: " << timeim[index] << " & index:" << index
+	<< " theor: " << valuet50hlideal << " delta: " << delta << endl;
+	return t50hl;
+}
+	
+double  findt50lh (double qarray[],int size){
+	double abs (double n); //declaration of abs
+	double valuet50lhideal = (qarray[findmax(qarray,size)]+qarray[findmin(qarray,size)])/2;
+	double t50lh=0;
+	double valuet50lh=0;
+	double delta=abs(valuet50lhideal);
+	int index=0;
+	for (int i=1; i<size; i++){
+	double slope=(qarray[i-1]-qarray[i+1])/(timeim[i-1]-timeim[i+1]);
+ 	if (slope>0){
+	
+ 			if (abs(qarray[i]-valuet50lhideal)<delta){
+			delta=abs(qarray[i]-valuet50lhideal);
+			index=i;
+			valuet50lh=qarray[i];
+			t50lh=timeim[i];
+	        	}
+	}
+	}
+	cout <<"value t50: " << valuet50lh << " @: " << timeim[index] << " & index:" << index
+	<< " theor: " << valuet50lhideal << " delta: " << delta << endl;
+	return t50lh;
+}	
+
+
+double delay (double qarray0[], double qarray1[], int size){
+ double tphlin =findt50hl (qarray0,countsamples);
+ double tphlout =findt50hl (qarray1,countsamples);
+ double tplhin =findt50lh (qarray0,countsamples);
+ double tplhout =findt50lh (qarray1,countsamples);
+ double tphl=tphlout-tphlin;
+ double tplh=tplhout-tplhin;
+ double delay = ((tphl+tplh)/2);
+ cout <<"tphl: " << tphl << " tplh: " << tplh << " tp:" << delay << endl;
+ return delay;
+ }
+
+double freq (double qarray[], int size){
+double abs (double n); //declaration of abs
+double valuet50lhideal = (qarray[findmax(qarray,size)]+qarray[findmin(qarray,size)])/2;
+double t1=0;
+double t2=0;
+double valuemid=abs(valuet50lhideal);
+double freq=0;
+bool primero=true;
+bool segundo=true;
+for (int i=0; i<size && segundo; i++){
+	if (qarray[i]<=valuemid && qarray[i+1]>valuemid && primero){
+		t1=(timeim[i+1]+timeim[i])/2;
+		primero=false; 	
+	        	}
+	else {if (qarray[i]<=valuemid && qarray[i+1]>valuemid){
+		t2=(timeim[i+1]+timeim[i])/2;
+		segundo=false;
+		       	}}
+	}
+double period=t2-t1;
+freq=1/period;
+cout <<"ideal:" << valuet50lhideal <<" value t1: " << t1 << " value t2:" << t2
+	<< " period: " << period << " frequency: " << freq << endl;
+	return freq;
+ }
+
+// delay implementado a partir de un punto de referencia para sennales en phase phase=true, contrafase phase=false
+double delayref (double qarray[], double qarray1[], int size, bool phase ){  
+double abs (double n); //declaration of abs
+double valuet50lhideala = (qarray[findmax(qarray,size)]+qarray[findmin(qarray,size)])/2;
+double valuet50lhidealb = (qarray1[findmax(qarray1,size)]+qarray1[findmin(qarray1,size)])/2;
+double t1=0;
+double t2=0;
+double valuemida=abs(valuet50lhideala);
+double valuemidb=abs(valuet50lhidealb);
+bool primero=true;
+bool segundo=true;
+if (phase){
+for (int i=0; i<size && (segundo || primero); i++){
+	if (qarray[i]<=valuemida && qarray[i+1]>valuemida && primero){
+		t1=(timeim[i+1]+timeim[i])/2;
+		primero=false; 	
+	        	}
+	else {if (qarray1[i]<=valuemidb  && qarray1[i+1]>valuemidb){
+		t2=(timeim[i+1]+timeim[i])/2;
+		segundo=false;
+		       	}}
+	}
+	}
+else{
+for (int i=0; i<size && (segundo || primero); i++){
+	if (qarray[i]<=valuemida && qarray[i+1]>valuemida && primero){
+		t1=(timeim[i+1]+timeim[i])/2;
+		primero=false; 	
+	        	}
+	else {if (qarray1[i]>=valuemidb  && qarray1[i+1]<valuemidb){
+		t2=(timeim[i+1]+timeim[i])/2;
+		segundo=false;
+		       	}}
+	}
+	}
+double delay=t2-t1;
+cout <<"ideala:" << valuet50lhideala <<"idealb:" << valuet50lhidealb <<" value t1: " << t1 << " value t2:" << t2
+	<< " delay: " << delay <<  endl;
+	return delay;
+ }
+ 
+
+void FitGen (){
+ double poweraverage=average(power, countsamples);
+ double maxswing1= findmax_diffswing (voutinv,vout, countsamples);
+ double frequency = freq (A,countsamples);
+ double delayc = delayref (Ainv,voutinv,countsamples,true); 
+ Fitns[0]=1/poweraverage;
+ //if (maxswing1<0){ maxswing1=-1*maxswing1; }
+ Fitns[1]=abs(maxswing1);
+ // if (delayc<0){ delayc=-1*delayc; }
+ Fitns[2]=abs(1/delayc);
+ cout << "fit0: "<< Fitns[0] << " fit1: " << Fitns[1] << " fit2: " << Fitns[2] << endl;
+ }
+
+string temp; 
+
+/*main
+program******************************************************/
+ 
+ void main () {
+ 
+  std::cout << "running....\n";
+
+  try
+    {
+      // Create the socket
+      ServerSocket server ( 30000 );
+
+      while ( true )
+	{
+
+	  ServerSocket new_sock;
+	  server.accept ( new_sock );
+
+	  try
+	    {
+	      while ( true )
+		{
+		  std::string data;
+		  new_sock >> data;
+		  cout << data;
+		  writeparameters(temp,"parameters",data); //llama la funcion para escribir los parametros en el netlist luego de la palabra parameters.
+		  int comma = system("/home/et5sn2/pr/files_c++/simInterface/GENETIC/X/cmlNandFullRange/start"); //ejecuta la simulacion
+  			if (comma<0) { cout <<  "error !!!!" << endl;
+  			}
+  			else{ cout <<  "ejecutado start " << endl;
+	    		}
+			readparameters(temp,"Values:");     //llama la funcion para leer los resultados de la simulacion
+			FitGen ();
+		  	ostringstream sstr;
+			sstr << "Poweravg: " << Fitns[0] << " Swing: " << Fitns[1] << " Delay: " << Fitns[2];
+			string circuitfitness;
+			circuitfitness = sstr.str();
+			//socket sending
+			new_sock << circuitfitness;
+		}
+	    }
+	  catch ( SocketException& ) {}
+
+	}
+    }
+  catch ( SocketException& e )
+    {
+      std::cout << "Exception was caught:" << e.description() << "\nExiting.\n";
+    }
+
+}
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

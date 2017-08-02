@@ -1,0 +1,45 @@
+-- 
+-- File Name:    :    cds.lib
+-- File path:    :    /cad/kits/ams_3.60/artist/HK_C35
+-- Author        :    Douglas Pattullo : austriamicrosystems Design Support
+-- Date          :    11-Dec-1996
+-- Version:      :    1.0 (for analog artist) for HIT Kit 3.xx
+-- Include Files :    None
+
+-- Owner: Austria Mikro Systeme
+-- HIT-Kit: Digital
+
+-- This is the template file for ams_cds
+
+--  HISTORY
+--------------------------------------------------------------------------------
+-- 11.12.96  dpa  Created
+-- 21.07.97  dpa  Path for std cds libs now references $AMS_DIR
+-- 01.06.99  tmo  Changed Version to 3.60
+--------------------------------------------------------------------------------
+
+-- AMS_LIB = "/cad/kits/ams_3.60/artist/HK_C35"
+-- AMS_VERSION = "3.60B"
+-- AMS_TECH = "c35b4"
+-- AMS_kit = "3.60B"
+-- AMS_process = "c35b4"
+
+
+-- Standard Cadence libraries
+INCLUDE $AMS_DIR/artist/HK_ALL/env/cds.lib
+
+-- austriamicrosystems HIT-Kit libraries
+-- Base cds.lib file for C35 
+-- Created by tmo 29/11/2001
+DEFINE TECH_C35B3   $AMS_DIR/artist/HK_C35/TECH_C35B3
+DEFINE PRIMLIB      $AMS_DIR/artist/HK_C35/PRIMLIB
+DEFINE IOLIB_4M     $AMS_DIR/artist/HK_C35/IOLIB_4M
+DEFINE IOLIBV5_4M   $AMS_DIR/artist/HK_C35/IOLIBV5_4M
+DEFINE IOLIB_ANA_4M $AMS_DIR/artist/HK_C35/IOLIB_ANA_4M
+DEFINE CORELIB      $AMS_DIR/artist/HK_C35/CORELIB
+DEFINE GATES $AMS_DIR/artist/HK_C35/GATES
+DEFINE sbaLib    $CDSDIR/tools/dfII/etc/cdslib/artist/sbaLib
+DEFINE LEADFRAMES    $AMS_DIR/artist/HK_ALL/LEADFRAMES
+DEFINE PRIMLIBRF    $AMS_DIR/artist/HK_C35/PRIMLIBRF
+DEFINE TECH_C35B4   $AMS_DIR/artist/HK_C35/TECH_C35B4
+DEFINE SPIRALS_4M    $AMS_DIR/artist/HK_C35/SPIRALS_4M

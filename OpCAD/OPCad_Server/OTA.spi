@@ -1,0 +1,36 @@
+*** SPICE deck for cell OTA{sch} from library OTA
+*** Created on Sat Jul 22, 2017 13:16:33
+*** Last revised on Sat Jul 29, 2017 11:55:24
+*** Written on Sat Jul 29, 2017 11:55:33 by Electric VLSI Design System, version 9.07
+*** Layout tech: mocmos, foundry MOSIS
+*** UC SPICE *** , MIN_RESIST 4.0, MIN_CAPAC 0.1FF
+
+.global gnd vdd
+
+*** TOP LEVEL CELL: OTA{sch}
+Mnmos-4@0 net@94 net@0 vdd vdd NMOS L=0.6U W=0.6U
+Mnmos-4@1 Ib2 V+ Ib1 vdd NMOS L=0.6U W=0.6U
+Mnmos-4@2 Ib1 V- Ib2 vdd NMOS L=0.6U W=0.6U
+Mnmos-4@3 net@3 V+ Ib2 vdd NMOS L=0.6U W=0.6U
+Mnmos-4@4 net@81 V- Ib1 vdd NMOS L=0.6U W=0.6U
+Mnmos-4@5 Out net@0 vdd vdd NMOS L=0.6U W=0.6U
+Mpmos-4@1 net@94 net@81 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@2 net@94 net@81 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@3 net@94 net@81 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@4 net@81 net@81 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@5 Out net@3 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@6 Out net@3 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@7 Out net@3 gnd gnd PMOS L=0.6U W=0.6U
+Mpmos-4@8 net@3 net@3 gnd gnd PMOS L=0.6U W=0.6U
+Rres@0 V+ gnd 1k
+Rres@1 gnd V- 1k
+Rres@2 Out gnd 1k
+IDCCurren@0 gnd Ib1 DC 500mA
+IDCCurren@1 gnd Ib2 DC 500mA
+VDCVoltag@0 V+ V- DC AC 1
+
+* Spice Code nodes in cell cell 'OTA{sch}'
+Vdd Vdd 0 DC 100
+.ac dec 1k 1 100Meg
+.include /home/leonardo/.wine/drive_c/Program_Files_x86/Electric/C5_models.txt
+.END

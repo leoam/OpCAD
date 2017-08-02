@@ -1,0 +1,52 @@
+#Do not modify the structure of the file! It will cause undesired problems, 
+#due to the program does not have a syntax analyzer.
+#To write a comment use the # symbol
+
+Number of parameters:
+28
+
+Parameters:
+L1
+W1
+L2
+W2
+L3
+W3
+L4
+W4
+L5
+W5
+L6
+W6
+L7
+W7
+L8
+W8
+L9
+W9
+L10
+W10
+L11
+W11
+L12
+W12
+L13
+W13
+L14
+W14
+
+
+Number of fitness:
+2
+
+#The order of the fitness is important!!! 
+#The first one will have more priority than the second one and so on.
+Fitness:
+1/Power
+Gain
+
+#Number of tests corresponds to the number of elements within the circuit.raw file.
+#100 000 is the maximun supported. If you want to increment it, go to the code and change the 
+#arrays declarations
+Number of tests:
+10000
